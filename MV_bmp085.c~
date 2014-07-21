@@ -96,7 +96,7 @@ void get_readings(long UT, long UP){
 
 int main(int argc, char **argv){
   int MSB, LSB, XLSB, timing, DEVICE_ADDRESS;
-  double temperature;
+  double temperature, sealevel, ALTITUDE;
 
   if (argc != 2) {
     printf("usage: %s [altitude in meters]\n", argv[0]);
@@ -105,6 +105,7 @@ int main(int argc, char **argv){
   }
   
   DEVICE_ADDRESS = 0x77;
+  ALTITUDE = atof(argv[1]);
 
   fd = wiringPiI2CSetup (DEVICE_ADDRESS);
   read_calibration_values(fd);
@@ -127,6 +128,8 @@ int main(int argc, char **argv){
 
   get_readings(UT, UP);
   temperature = temp/10;
+  sealevel = (double) pressure / pow((1.0-ALTITUDE/44330.0),5.255);
   printf("Temperature: %.1f *C, Pressure: %d Pa\n", temperature, (int) pressure);
+  printf("Pressure at sea level: %.0f\n", sealevel);
   return 0;
 }
