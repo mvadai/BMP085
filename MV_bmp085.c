@@ -97,12 +97,6 @@ void get_readings(long UT, long UP){
 int main(int argc, char **argv){
   int MSB, LSB, XLSB, timing, DEVICE_ADDRESS;
   double temperature;
-
-  if (argc != 2) {
-    printf("usage: %s [altitude in meters]\n", argv[0]);
-    printf("example: %s 89 - the sensor is at 89m height \n", argv[0]);
-    return 2;
-  }
   
   DEVICE_ADDRESS = 0x77;
 
