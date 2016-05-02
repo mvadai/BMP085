@@ -96,7 +96,6 @@ void get_readings(long UT, long UP){
 
 int main(int argc, char **argv){
   int MSB, LSB, XLSB, timing, DEVICE_ADDRESS;
-  double temperature;
   
   DEVICE_ADDRESS = 0x77;
 
@@ -120,7 +119,6 @@ int main(int argc, char **argv){
   UP = ((MSB << 16) + (LSB << 8) + XLSB) >> (8 - OSS);
 
   get_readings(UT, UP);
-  temperature = temp/10;
-  printf("Temperature: %.1f *C, Pressure: %d Pa\n", temperature, (int) pressure);
+  printf("Temperature: %.1f *C, Pressure: %d Pa\n", (float)temp/10, (int) pressure);
   return 0;
 }
